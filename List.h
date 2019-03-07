@@ -1,25 +1,22 @@
 //
-// Created by parallels on 2/28/19.
+// Created by Alejandro Ibarra on 2019-03-07.
 //
 
 #ifndef LISTS_LIST_H
 #define LISTS_LIST_H
 #include <iostream>
+#include "Node.cpp"
+#include "Collector.cpp"
 
 using namespace std;
 
-struct node {
-    int data;
-    node *next;
-};
-
-class list {
+class List {
 
 private:
-    node *head,*tail;
+    Node *head,*tail;
     int length;
 public:
-    list() {
+    List() {
         head = NULL;
         tail = NULL;
         length = 0;
@@ -30,7 +27,8 @@ public:
     }
 
     void add(int n) {
-        node *tmp = new node;
+        Collector& thanos = Collector::getInstance();
+        Node *tmp = thanos.getMemory();
         tmp->data = n;
         tmp->next = NULL;
         length += 1;
@@ -45,7 +43,7 @@ public:
         }
     }
 
-    node* gethead() {
+    Node* gethead() {
         return head;
     }
 
@@ -53,7 +51,7 @@ public:
         display_aux(gethead(), "[");
     }
 
-    void display_aux(node *head, string result) {
+    void display_aux(Node *head, string result) {
         if(head == NULL) {
             //cout << length << endl;
             result.erase(result.size() - 2);
@@ -68,7 +66,7 @@ public:
         }
     }
 
-    static void concatenate(node *a,node *b) {
+    static void concatenate(Node *a, Node *b) {
         if( a != NULL && b!= NULL ) {
             if (a->next == NULL)
                 a->next = b;
@@ -81,25 +79,29 @@ public:
     }
 
     void front(int n) {
-        node *tmp = new node;
+        length += 1;
+        Node *tmp = new Node;
         tmp -> data = n;
         tmp -> next = head;
         head = tmp;
     }
 
-    void after(node *a, int value) {
-        node* p = new node;
+    void after(Node *a, int value) {
+        length += 1;
+        Node* p = new Node;
         p->data = value;
         p->next = a->next;
         a->next = p;
     }
 
-    void del (node *before_del) {
-        node* temp;
+    void del (Node *before_del) {
+        length -= 1;
+        Node* temp;
         temp = before_del->next;
         before_del->next = temp->next;
         delete temp;
     }
+
 };
 
 #endif //LISTS_LIST_H

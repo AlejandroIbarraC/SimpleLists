@@ -1,19 +1,21 @@
 #include <iostream>
-#include "list.cpp"
+#include "List.cpp"
+#include "Collector.cpp"
 
 int main() {
 
-    list a;
+    List a;
     a.add(1);
     a.add(2);
-    a.front(3);
     a.add(5);
     a.add(15);
-    a.after(a.gethead()->next->next->next, 10);
     a.del(a.gethead()->next);
     a.display();
 
     cout << a.getLength() << endl;
+
+    Collector& thanos = Collector::getInstance();
+    thanos.display();
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

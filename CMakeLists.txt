@@ -3,4 +3,4 @@ project(Lists)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Lists main.cpp list.cpp list.h)
+add_executable(Lists main.cpp List.cpp List.h Collector.cpp Collector.h Node.cpp Node.h)
