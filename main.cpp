@@ -13,6 +13,7 @@ int main() {
     a.del(a.gethead()->next);
     a.display();
 
+    cout << a.getLength() << endl;
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

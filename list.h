@@ -17,12 +17,16 @@ class list {
 
 private:
     node *head,*tail;
-    int *length;
+    int length;
 public:
     list() {
         head = NULL;
         tail = NULL;
         length = 0;
+    }
+
+    int getLength() const {
+        return length;
     }
 
     void add(int n) {
@@ -51,7 +55,7 @@ public:
 
     void display_aux(node *head, string result) {
         if(head == NULL) {
-            cout << length << endl;
+            //cout << length << endl;
             result.erase(result.size() - 2);
             result.append("]");
             cout << result << endl;
