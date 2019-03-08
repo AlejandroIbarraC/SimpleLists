@@ -99,7 +99,8 @@ public:
         Node* temp;
         temp = before_del->next;
         before_del->next = temp->next;
-        delete temp;
+        Collector& thanos = Collector::getInstance();
+        thanos.freeMemory(temp);
     }
 
 };

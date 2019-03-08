@@ -95,12 +95,20 @@ public:
         }
     }
 
-    void del (Node *before_del) {
+    void del (CollectorNode *before_del) {
         length -= 1;
-        Node* temp;
+        CollectorNode* temp;
         temp = before_del->next;
         before_del->next = temp->next;
         delete temp;
+    }
+
+    void freeMemory (Node *toDelete) {
+        CollectorNode *tmp = this->head;
+        while (tmp->data != toDelete) {
+            tmp = tmp->next;
+        }
+        delete toDelete;
     }
 
 };
