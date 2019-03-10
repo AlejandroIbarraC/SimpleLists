@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
-project(Lists)
+project(SimpleLists)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Lists main.cpp List.cpp List.h Collector.cpp Collector.h Node.cpp Node.h)
+add_executable(Lists List/main.cpp List/List.cpp List/List.h List/Collector.cpp List/Collector.h List/Node.cpp List/Node.h "Unit Tests/ListTest.cpp" "Unit Tests/ListTest.h")
