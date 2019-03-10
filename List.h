@@ -15,6 +15,8 @@ class List {
 private:
     Node *head,*tail;
     int length;
+
+
 public:
     List() {
         head = NULL;
@@ -22,10 +24,15 @@ public:
         length = 0;
     }
 
+
+    ///
+    /// @return list lenght
     int getLength() const {
         return length;
     }
 
+    ///
+    /// \param n Int Element to be added to list
     void add(int n) {
         Collector& thanos = Collector::getInstance();
         Node *tmp = thanos.getMemory();
@@ -43,10 +50,15 @@ public:
         }
     }
 
+    ///
+    /// @return First element of the list
     Node* gethead() {
         return head;
     }
 
+
+    ///
+    ///@return Print list in console
     void display() {
         display_aux(gethead(), "[");
     }
@@ -78,6 +90,8 @@ public:
         }
     }
 
+    ///
+    /// \param n Int element to be added at the beginning of the list
     void front(int n) {
         length += 1;
         Node *tmp = new Node;
@@ -86,6 +100,9 @@ public:
         head = tmp;
     }
 
+    ///
+    /// \param a Reference Node
+    /// \param value Int Element to be added after the reference Node
     void after(Node *a, int value) {
         length += 1;
         Node* p = new Node;
@@ -94,6 +111,8 @@ public:
         a->next = p;
     }
 
+    ///
+    /// \param before_del Node to be deleted
     void del (Node *before_del) {
         length -= 1;
         Node* temp;
