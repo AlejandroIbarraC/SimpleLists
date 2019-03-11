@@ -5,6 +5,11 @@
 #include <gmock/gmock.h>
 
 
+TEST(Listtests, ListStartsEmpty)
+{
+    List list;
+    EXPECT_EQ(0, list.getLength());
+}
 int main(int argc, char* argv[]) {
 
     Collector& thanos = Collector::getInstance();
@@ -56,5 +61,7 @@ int main(int argc, char* argv[]) {
     thanos.display();
 
     std::cout << "Goodbye, World!" << std::endl;
+
+    testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
