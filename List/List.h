@@ -16,19 +16,25 @@ private:
     Node *head,*tail;
     int length;
 
+    void display_aux(Node *head, string result) {
+        if(head == NULL) {
+            result.erase(result.size() - 2);
+            result.append("]");
+            cout << result << endl;
+        }
+        else {
+            string current = to_string(head->data);
+            result.append(current);
+            result.append(", ");
+            display_aux(head->next, result);
+        }
+    }
 
 public:
     List() {
         head = NULL;
         tail = NULL;
         length = 0;
-    }
-
-
-    ///
-    /// @return list lenght
-    int getLength() const {
-        return length;
     }
 
     ///
@@ -38,6 +44,7 @@ public:
         Node *tmp = thanos.getMemory();
         tmp->data = n;
         tmp->next = NULL;
+        tmp->prev = tail;
         length += 1;
 
         if(head == NULL) {
@@ -51,11 +58,21 @@ public:
     }
 
     ///
-    /// @return First element of the list
-    Node* gethead() {
-        return head;
+    /// \param toDel Node to be deleted
+    void del (Node *toDel) {
+        if (toDel == head) {
+            Node *temp;
+            temp = head;
+            head = head->next;
+            Collector &thanos = Collector::getInstance();
+            thanos.freeMemory(temp);
+        } else {
+            toDel->prev->next = toDel->next;
+            Collector &thanos = Collector::getInstance();
+            thanos.freeMemory(toDel);
+        }
+        length -= 1;
     }
-
 
     ///
     ///@return Print list in console
@@ -63,63 +80,26 @@ public:
         display_aux(gethead(), "[");
     }
 
-    void display_aux(Node *head, string result) {
-        if(head == NULL) {
-            //cout << length << endl;
-            result.erase(result.size() - 2);
-            result.append("]");
-            cout << result << endl;
-        }
-        else {
-            string current = to_string(head->data);
-            result.append(current);
-            result.append(", ");
-            display_aux(head->next, result);
-        }
-    }
-
-    static void concatenate(Node *a, Node *b) {
-        if( a != NULL && b!= NULL ) {
-            if (a->next == NULL)
-                a->next = b;
-            else
-                concatenate(a->next,b);
-        }
-        else {
-            cout << "Either a or b is NULL\n";
-        }
+    ///
+    /// @return First element of the list
+    Node* gethead() {
+        return head;
     }
 
     ///
-    /// \param n Int element to be added at the beginning of the list
-    void front(int n) {
-        length += 1;
-        Node *tmp = new Node;
-        tmp -> data = n;
-        tmp -> next = head;
-        head = tmp;
+    /// @return list length
+    int getLength() const {
+        return length;
     }
 
-    ///
-    /// \param a Reference Node
-    /// \param value Int Element to be added after the reference Node
-    void after(Node *a, int value) {
-        length += 1;
-        Node* p = new Node;
-        p->data = value;
-        p->next = a->next;
-        a->next = p;
-    }
-
-    ///
-    /// \param before_del Node to be deleted
-    void del (Node *before_del) {
-        length -= 1;
-        Node* temp;
-        temp = before_del->next;
-        before_del->next = temp->next;
-        Collector& thanos = Collector::getInstance();
-        thanos.freeMemory(temp);
+    void remove(int n) {
+        Node *temp = this->head;
+        while (temp != NULL) {
+            if (temp->data == n) {
+                del(temp);
+            }
+            temp = temp->next;
+        }
     }
 
 };

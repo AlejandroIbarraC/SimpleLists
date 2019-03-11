@@ -10,8 +10,7 @@ class Node {
 public:
     int data;
     Node *next;
-
-    int getData() const;
+    Node *prev;
 };
 
 
