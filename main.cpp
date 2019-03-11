@@ -8,22 +8,53 @@
 int main(int argc, char* argv[]) {
 
     Collector& thanos = Collector::getInstance();
+    List list;
 
-    List a;
-    a.add(1);
-    a.add(2);
-    a.add(5);
-    a.add(15);
-    a.add(20);
-    a.add(123);
-    a.del(a.gethead()->next);
-    a.del(a.gethead());
-    a.display();
+    // Add items to list
+    list.add(1);
+    list.add(2);
+    list.add(5);
+    list.add(15);
+    list.add(20);
+    list.add(123);
 
-    cout << a.getLength() << endl;
+    // Print original list
+    cout << "Original list:" << endl;
+    list.display();
 
+    // Print original collector
+    cout << "Empty collector:" << endl;
     thanos.display();
 
-    std::cout << "Hello, World!" << std::endl;
+    // Remove items
+    cout << "Removing items..." << endl;
+    list.remove(1);
+    list.remove(2);
+    list.remove(20);
+
+    // Print list with removals
+    cout << "List with removals:" << endl;
+    list.display();
+
+    // Print collector with removals
+    cout << "Collector with removals:" << endl;
+    thanos.display();
+
+
+    // Add new items
+    cout << "Adding new items..." << endl;
+    list.add(12);
+    list.add(100);
+    list.add(30);
+
+    // Print list with additions
+    cout << "List with additions:" << endl;
+    list.display();
+
+    // Print collector with additions
+    cout << "Collector with additions:" << endl;
+    thanos.display();
+
+    std::cout << "Goodbye, World!" << std::endl;
     return RUN_ALL_TESTS();
 }

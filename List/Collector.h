@@ -11,64 +11,14 @@
 
 using namespace std;
 
-struct CollectorNode {
-    Node *data;
-    CollectorNode *next;
-};
-
 class Collector {
 
 private:
-    CollectorNode *head,*tail;
+    Node *head,*tail;
     int length;
-public:
-    Collector() {
-        head = NULL;
-        tail = NULL;
-        length = 0;
-    }
 
-    static Collector& getInstance(){
-        static Collector theInstance;
-        return theInstance;
-    }
-
-    int getLength() const {
-        return length;
-    }
-
-    Node* getMemory() {
-        Node *result = new Node;
-        this->add(result);
-        return result;
-    }
-
-    void add(Node *n) {
-        CollectorNode *tmp = new CollectorNode;
-        tmp->data = n;
-        tmp->next = NULL;
-        length += 1;
-
+    void display_aux(Node *head, string result) {
         if (head == NULL) {
-            head = tmp;
-            tail = tmp;
-        }
-        else {
-            tail->next = tmp;
-            tail = tail->next;
-        }
-    }
-
-    CollectorNode * gethead() {
-        return head;
-    }
-
-    void display() {
-        display_aux(gethead(), "[");
-    }
-
-    void display_aux(CollectorNode *head, string result) {
-        if(head == NULL) {
             result.erase(result.size() - 2);
             result.append("]");
             cout << result << endl;
@@ -83,32 +33,66 @@ public:
         }
     }
 
-    static void concatenate(Node *a, Node *b) {
-        if( a != NULL && b!= NULL ) {
-            if (a->next == NULL)
-                a->next = b;
-            else
-                concatenate(a->next,b);
-        }
-        else {
-            cout << "Either a or b is NULL\n";
-        }
+    Node * gethead() {
+        return head;
     }
 
-    void del (CollectorNode *before_del) {
-        length -= 1;
-        CollectorNode* temp;
-        temp = before_del->next;
-        before_del->next = temp->next;
-        delete temp;
+public:
+    Collector() {
+        head = NULL;
+        tail = NULL;
+        length = 0;
     }
 
     void freeMemory (Node *toDelete) {
-        CollectorNode *tmp = this->head;
-        while (tmp->data != toDelete) {
-            tmp = tmp->next;
+        if (head == NULL) {
+            toDelete->next = NULL;
+            toDelete->prev = NULL;
+            head = toDelete;
+            tail = toDelete;
         }
-        delete toDelete;
+        else {
+            toDelete->next = NULL;
+            toDelete->prev = NULL;
+            tail->next = toDelete;
+            tail = tail->next;
+        }
+        length += 1;
+    }
+
+    static Collector& getInstance(){
+        static Collector theInstance;
+        return theInstance;
+    }
+
+    Node* getMemory() {
+        Node *result;
+        if (gethead() == NULL) {
+            result = new Node;
+        } else {
+            result = gethead();
+            del(result);
+        }
+        return result;
+    }
+
+    void del (Node *toDel) {
+        if (toDel == head) {
+            Node *temp;
+            temp = head;
+            head = head->next;
+        } else {
+            toDel->prev->next = toDel->next;
+        }
+        length -=1;
+    }
+
+    void display() {
+        if (gethead() == NULL) {
+            cout << "Collector is empty" << endl;
+        } else {
+            display_aux(gethead(), "[");
+        }
     }
 
 };
