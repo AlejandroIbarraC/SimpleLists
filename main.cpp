@@ -1,8 +1,11 @@
 #include <iostream>
-#include "List.cpp"
-#include "Collector.cpp"
+#include "List/List.cpp"
+#include "List/Collector.cpp"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-int main() {
+
+int main(int argc, char* argv[]) {
 
     Collector& thanos = Collector::getInstance();
 
@@ -22,5 +25,5 @@ int main() {
     thanos.display();
 
     std::cout << "Hello, World!" << std::endl;
-    return 0;
+    return RUN_ALL_TESTS();
 }
