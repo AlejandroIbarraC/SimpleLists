@@ -16,6 +16,11 @@ private:
     Node *head,*tail;
     int length;
 
+    /**
+     * Displays the node itself in firs instance
+     * @param head
+     * @param result
+     */
     void display_aux(Node *head, string result) {
         if(head == NULL) {
             result.erase(result.size() - 2);
@@ -30,15 +35,19 @@ private:
         }
     }
 
+    /**
+     * First definition of the list
+     */
 public:
     List() {
         head = NULL;
         tail = NULL;
         length = 0;
     }
-
-    ///
-    /// \param n Int Element to be added to list
+    /**
+     * This method adds a new space of data in a node
+     * @param n
+     */
     void add(int n) {
         Collector& thanos = Collector::getInstance();
         Node *tmp = thanos.getMemory();
@@ -57,8 +66,10 @@ public:
         }
     }
 
-    ///
-    /// \param toDel Node to be deleted
+    /**
+     * Deletes the node an its information
+     * @param toDel
+     */
     void del (Node *toDel) {
         if (toDel == head) {
             Node *temp;
@@ -74,24 +85,32 @@ public:
         length -= 1;
     }
 
-    ///
-    ///@return Print list in console
+   /**
+    * displays the list in the console
+    */
     void display() {
         display_aux(gethead(), "[");
     }
 
-    ///
-    /// @return First element of the list
+    /**
+     * Obtains the head of the list
+     * @return
+     */
     Node* gethead() {
         return head;
     }
 
-    ///
-    /// @return list length
+   /**
+    * Obtain the leght of the group of elements
+    * @return
+    */
     int getLength() const {
         return length;
     }
-
+    /**
+     * Remove the node from the list
+     * @param n
+     */
     void remove(int n) {
         Node *temp = this->head;
         while (temp != NULL) {

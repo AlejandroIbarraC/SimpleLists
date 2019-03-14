@@ -6,6 +6,9 @@
 #define LISTS_NODE_H
 
 class Node {
+/**
+ * first initiation of the node
+ */
 
 public:
     int data;

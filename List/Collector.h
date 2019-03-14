@@ -12,11 +12,18 @@
 using namespace std;
 
 class Collector {
-
+/**
+ * Fisrt definition of the node and its head
+ */
 private:
     Node *head,*tail;
     int length;
-
+/**
+ *
+ * @param head
+ * @param result
+ * This Method dislays the node and basically inizialited it and its head
+ */
     void display_aux(Node *head, string result) {
         if (head == NULL) {
             result.erase(result.size() - 2);
@@ -33,17 +40,27 @@ private:
         }
     }
 
+    /**
+     * Get the head of the node
+     * @return
+     */
     Node * gethead() {
         return head;
     }
-
+/**
+ * Definition of the collector itself
+ */
 public:
     Collector() {
         head = NULL;
         tail = NULL;
         length = 0;
     }
-
+    /**
+     *
+     * @param toDelete
+     * This Method was created in order to set free the information in the nodes
+     */
     void freeMemory (Node *toDelete) {
         if (head == NULL) {
             toDelete->next = NULL;
@@ -60,11 +77,19 @@ public:
         length += 1;
     }
 
+    /**
+     * Static parameter get instance of the collector
+     * @return
+     */
     static Collector& getInstance(){
         static Collector theInstance;
         return theInstance;
     }
-
+    /**
+     *
+     * @return
+     * This method was created in order to obtain the information in one node
+     */
     Node* getMemory() {
         Node *result;
         if (gethead() == NULL) {
@@ -75,7 +100,11 @@ public:
         }
         return result;
     }
-
+    /**
+     *
+     * @param toDel
+     * Method that delete a certain node position
+     */
     void del (Node *toDel) {
         if (toDel == head) {
             Node *temp;
@@ -86,7 +115,10 @@ public:
         }
         length -=1;
     }
-
+    /**
+     *
+     * This method displays the head of the node
+     */
     void display() {
         if (gethead() == NULL) {
             cout << "Collector is empty" << endl;
